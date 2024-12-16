@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F1A28FA92D10A75F00AABFF8 /* SwiftWhisper in Frameworks */ = {isa = PBXBuildFile; productRef = F1A28FA82D10A75F00AABFF8 /* SwiftWhisper */; };
-		F1A28FAC2D10A78B00AABFF8 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1A28FAB2D10A78B00AABFF8 /* AudioKit */; };
+		F1A28FBB2D10BAE400AABFF8 /* WhisperKit in Frameworks */ = {isa = PBXBuildFile; productRef = F1A28FBA2D10BAE400AABFF8 /* WhisperKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,8 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1A28FAC2D10A78B00AABFF8 /* AudioKit in Frameworks */,
-				F1A28FA92D10A75F00AABFF8 /* SwiftWhisper in Frameworks */,
+				F1A28FBB2D10BAE400AABFF8 /* WhisperKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,8 +117,7 @@
 			);
 			name = "whispr-blow";
 			packageProductDependencies = (
-				F1A28FA82D10A75F00AABFF8 /* SwiftWhisper */,
-				F1A28FAB2D10A78B00AABFF8 /* AudioKit */,
+				F1A28FBA2D10BAE400AABFF8 /* WhisperKit */,
 			);
 			productName = "whispr-blow";
 			productReference = F189AA542D10A4C9001B4D9D /* whispr-blow.app */;
@@ -205,8 +202,7 @@
 			mainGroup = F189AA4B2D10A4C9001B4D9D;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				F1A28FA72D10A75F00AABFF8 /* XCRemoteSwiftPackageReference "SwiftWhisper" */,
-				F1A28FAA2D10A78B00AABFF8 /* XCRemoteSwiftPackageReference "AudioKit" */,
+				F1A28FB92D10BAE400AABFF8 /* XCRemoteSwiftPackageReference "WhisperKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F189AA552D10A4C9001B4D9D /* Products */;
@@ -606,34 +602,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F1A28FA72D10A75F00AABFF8 /* XCRemoteSwiftPackageReference "SwiftWhisper" */ = {
+		F1A28FB92D10BAE400AABFF8 /* XCRemoteSwiftPackageReference "WhisperKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exPHAT/SwiftWhisper";
+			repositoryURL = "https://github.com/argmaxinc/WhisperKit";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		F1A28FAA2D10A78B00AABFF8 /* XCRemoteSwiftPackageReference "AudioKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AudioKit/AudioKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.4;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F1A28FA82D10A75F00AABFF8 /* SwiftWhisper */ = {
+		F1A28FBA2D10BAE400AABFF8 /* WhisperKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F1A28FA72D10A75F00AABFF8 /* XCRemoteSwiftPackageReference "SwiftWhisper" */;
-			productName = SwiftWhisper;
-		};
-		F1A28FAB2D10A78B00AABFF8 /* AudioKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F1A28FAA2D10A78B00AABFF8 /* XCRemoteSwiftPackageReference "AudioKit" */;
-			productName = AudioKit;
+			package = F1A28FB92D10BAE400AABFF8 /* XCRemoteSwiftPackageReference "WhisperKit" */;
+			productName = WhisperKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
