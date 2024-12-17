@@ -19,7 +19,7 @@ import CoreML
 struct ContentView: View {
     @State private var whisperKit: WhisperKit?
     #if os(macOS)
-    @State private var audioDevices: [AudioDevice]?
+//    @State private var audioDevices: [AudioDevice]?
     #endif
     @State private var isRecording: Bool = false
     @State private var isTranscribing: Bool = false
@@ -28,22 +28,61 @@ struct ContentView: View {
     @State var listening: Bool = false
     @State var audioTranscription: String?
     
+    func startRecording() {
+        if let audioProcessor = whisperKit?.audioProcessor {
+            Task(priority: .userInitiated) {
+                guard await AudioProcessor.requestRecordPermission() else {
+                    print("Microphone access was not granted")
+                    return
+                }
+
+                #if os(macOS)
+                let audioDevices: [AudioDevice] = AudioProcessor.getAudioDevices()
+                let device = audioDevices.first
+                
+                // There is no built-in microphone
+                if (device == nil || device?.id == nil) {
+                    throw WhisperError.microphoneUnavailable()
+                }
+                #endif
+                
+                try? audioProcessor.startRecordingLive(inputDeviceID: device?.id, callback: { _ in
+                    DispatchQueue.main.async {
+                        
+                    }
+                })
+            }
+        }
+    }
+                                                       
+    func stopRecording() {
+        if let audioProcessor = whisperKit?.audioProcessor {
+            audioProcessor.stopRecording()
+        }
+    }
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
             
             ModelLoaderView(whisperKit: $whisperKit)
             
             Button(listening ? "Stop listening" : "Listen") {
                 self.listening.toggle()
+                if listening {
+                    startRecording()
+                } else {
+                    stopRecording()
+                }
             }
+            Text(audioTranscription ?? "")
         }
         .padding()
     }
 }
+
 
 struct ModelLoaderView: View {
     enum Statuses {
@@ -63,7 +102,6 @@ struct ModelLoaderView: View {
     @State var modelName = "tiny"
     @State var status: Statuses = .loading
     @Binding var whisperKit: WhisperKit?
-    
 
     func initModel() {
         Task { do {
@@ -91,12 +129,18 @@ struct ModelLoaderView: View {
             Spacer()
             
             switch status {
-            case .loading: ProgressView().controlSize(.small)
-            case .success: Image(systemName: "circle.badge.checkmark.fill")
+            case .loading: Image(systemName: "progress.indicator")
                     .imageScale(.large)
-            case .failure: Image(systemName: "circle.badge.xmark.fill")
+                    .symbolEffect(.variableColor.iterative, isActive: true)
+            case .success: Image(systemName: "circle.badge.checkmark")
+                    .symbolRenderingMode(.hierarchical)
+                    .imageScale(.large)
+                    .symbolEffect(.bounce.byLayer.down, value: status)
+            case .failure: Image(systemName: "circle.badge.xmark")
+                    .symbolRenderingMode(.multicolor)
                     .imageScale(.large)
                     .foregroundStyle(.red)
+                    .symbolEffect(.bounce.byLayer.down, value: status)
             }
         }
     }
